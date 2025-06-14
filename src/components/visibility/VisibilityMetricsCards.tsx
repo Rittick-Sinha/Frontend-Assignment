@@ -26,7 +26,7 @@ export function VisibilityMetricsCards() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="text-sm font-semibold font-semibold text-gray-600">Success Rate</span>
+                <span className="text-sm  font-semibold text-gray-600">Success Rate</span>
               </div>
               <div className="text-2xl font-semibold text-gray-900">99.2%</div>
               <div className="text-xs font-semibold text-gray-500 mt-1">Successful requests</div>

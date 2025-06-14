@@ -22,7 +22,7 @@ const MetricCard = ({
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           {Icon && <Icon className="w-4 h-4 text-gray-500" />}
-          <span className="text-sm text-gray-600">{label}</span>
+          <span className="text-sm font-semibold text-gray-600">{label}</span>
         </div>
         <div className={`w-2 h-2 rounded-full bg-${statusColor}-500`} />
       </div>

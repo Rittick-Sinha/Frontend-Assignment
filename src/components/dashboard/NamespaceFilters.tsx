@@ -57,13 +57,17 @@ export function NamespaceFilters() {
     </div>
   );
 
+  // 🔵 Tailwind classes for blue ring focus
+  const triggerClass =
+    "w-52 h-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ";
+
   return (
     <Card className="p-4 mb-6 border border-gray-200 shadow-sm">
       <div className="flex flex-wrap justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-4">
           {/* Namespace */}
           <Select value={selectedNamespace} onValueChange={setSelectedNamespace}>
-            <SelectTrigger className="w-52 h-10 text-sm">
+            <SelectTrigger className={triggerClass}>
               <SelectValue>
                 <TriggerContent
                   label={getSelectedLabel(options.namespaces, selectedNamespace)}
@@ -81,7 +85,7 @@ export function NamespaceFilters() {
 
           {/* Services */}
           <Select value={selectedService} onValueChange={setSelectedService}>
-            <SelectTrigger className="w-52 h-10 text-sm">
+            <SelectTrigger className={triggerClass}>
               <SelectValue>
                 <TriggerContent
                   label={getSelectedLabel(options.services, selectedService)}
@@ -99,7 +103,7 @@ export function NamespaceFilters() {
 
           {/* Workloads */}
           <Select value={selectedWorkload} onValueChange={setSelectedWorkload}>
-            <SelectTrigger className="w-52 h-10 text-sm">
+            <SelectTrigger className={triggerClass}>
               <SelectValue>
                 <TriggerContent
                   label={getSelectedLabel(options.workloads, selectedWorkload)}
