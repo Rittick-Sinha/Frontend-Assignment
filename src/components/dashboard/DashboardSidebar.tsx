@@ -16,7 +16,6 @@ import {
   GitFork,
   Database,
   GitBranch,
-  BarChart3,
   Eye,
   BarChart,
   Shield,
@@ -24,6 +23,7 @@ import {
   Settings,
   HelpCircle,
   AlertTriangle,
+  ChevronDown,
 } from "lucide-react";
 
 import {
@@ -32,7 +32,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-import { ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
@@ -118,18 +117,39 @@ export function DashboardSidebar() {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   {item.hasSubmenu ? (
-                    <Collapsible open={openMenus[item.title] || false}>
+                    <Collapsible
+                      open={
+                        openMenus[item.title] !== undefined
+                          ? openMenus[item.title]
+                          : isActive(undefined, item.submenuItems)
+                      }
+                      onOpenChange={(isOpen) =>
+                        setOpenMenus((prev) => ({
+                          ...prev,
+                          [item.title]: isOpen,
+                        }))
+                      }
+                    >
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton
-                          onClick={() => toggleMenu(item.title)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleMenu(item.title);
+                          }}
                           className={`w-full justify-between ${
                             isActive(item.href, item.submenuItems)
                               ? "bg-blue-50 text-blue-700"
-                              : "text-gray-700 hover:bg-gray-100"
+                              : "text-gray-500 hover:bg-gray-100"
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <item.icon className="w-4 h-4" />
+                            <item.icon
+                              className={`w-4 h-4 ${
+                                item.title === "Traffic Management"
+                                  ? "rotate-180"
+                                  : ""
+                              }`}
+                            />
                             <span className="font-semibold">{item.title}</span>
                           </div>
                           <ChevronDown className="w-4 h-4" />
@@ -147,15 +167,13 @@ export function DashboardSidebar() {
                                 className={`flex items-center gap-2 text-sm py-1 px-2 rounded hover:bg-gray-100 ${
                                   location.pathname === subItem.href
                                     ? "bg-blue-50 text-blue-700"
-                                    : "text-gray-600"
+                                    : "text-gray-500"
                                 }`}
                               >
                                 {subItem.icon && (
                                   <subItem.icon className="w-4 h-4" />
                                 )}
-                                <span className="font-semibold">
-                                  {subItem.title}
-                                </span>
+                                <span className="font-semibold">{subItem.title}</span>
                               </div>
                             </Link>
                           </div>
@@ -167,13 +185,19 @@ export function DashboardSidebar() {
                       className={`${
                         isActive(item.href)
                           ? "bg-blue-50 text-blue-700"
-                          : "text-gray-700 hover:bg-gray-100"
+                          : "text-gray-500 hover:bg-gray-100"
                       }`}
                       asChild
                     >
                       <Link to={item.href || "#"}>
                         <div className="flex items-center gap-3">
-                          <item.icon className="w-4 h-4" />
+                          <item.icon
+                            className={`w-4 h-4 ${
+                              item.title === "Traffic Management"
+                                ? "rotate-180"
+                                : ""
+                            }`}
+                          />
                           <span className="font-semibold">{item.title}</span>
                         </div>
                       </Link>
@@ -182,7 +206,6 @@ export function DashboardSidebar() {
                 </SidebarMenuItem>
               ))}
 
-              {/* ✅ Footer placed immediately after the menu */}
               <SidebarFooter className="p-4 border-t border-gray-200 mt-4">
                 <div className="text-xs text-gray-500">
                   © 2024 Istio Manager
