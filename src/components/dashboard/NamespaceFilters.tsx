@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { RefreshCw, Check } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const options = {
   namespaces: [
@@ -36,9 +37,15 @@ const options = {
 
 export function NamespaceFilters() {
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedNamespace, setSelectedNamespace] = useState("all");
   const [selectedService, setSelectedService] = useState("all");
   const [selectedWorkload, setSelectedWorkload] = useState("all");
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -57,7 +64,6 @@ export function NamespaceFilters() {
     </div>
   );
 
-  // 🔵 Tailwind classes for blue ring focus
   const triggerClass =
     "w-52 h-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ";
 
@@ -65,62 +71,66 @@ export function NamespaceFilters() {
     <Card className="p-4 mb-6 border border-gray-200 shadow-sm">
       <div className="flex flex-wrap justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-4">
-          {/* Namespace */}
-          <Select value={selectedNamespace} onValueChange={setSelectedNamespace}>
-            <SelectTrigger className={triggerClass}>
-              <SelectValue>
-                <TriggerContent
-                  label={getSelectedLabel(options.namespaces, selectedNamespace)}
-                />
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options.namespaces.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {loading
+            ? [1, 2, 3].map((_, i) => (
+                <Skeleton key={i} className="w-52 h-10 rounded-md" />
+              ))
+            : (
+              <>
+                <Select value={selectedNamespace} onValueChange={setSelectedNamespace}>
+                  <SelectTrigger className={triggerClass}>
+                    <SelectValue>
+                      <TriggerContent
+                        label={getSelectedLabel(options.namespaces, selectedNamespace)}
+                      />
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.namespaces.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-          {/* Services */}
-          <Select value={selectedService} onValueChange={setSelectedService}>
-            <SelectTrigger className={triggerClass}>
-              <SelectValue>
-                <TriggerContent
-                  label={getSelectedLabel(options.services, selectedService)}
-                />
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options.services.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+                <Select value={selectedService} onValueChange={setSelectedService}>
+                  <SelectTrigger className={triggerClass}>
+                    <SelectValue>
+                      <TriggerContent
+                        label={getSelectedLabel(options.services, selectedService)}
+                      />
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.services.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-          {/* Workloads */}
-          <Select value={selectedWorkload} onValueChange={setSelectedWorkload}>
-            <SelectTrigger className={triggerClass}>
-              <SelectValue>
-                <TriggerContent
-                  label={getSelectedLabel(options.workloads, selectedWorkload)}
-                />
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {options.workloads.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+                <Select value={selectedWorkload} onValueChange={setSelectedWorkload}>
+                  <SelectTrigger className={triggerClass}>
+                    <SelectValue>
+                      <TriggerContent
+                        label={getSelectedLabel(options.workloads, selectedWorkload)}
+                      />
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.workloads.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </>
+            )}
         </div>
 
-        {/* Refresh */}
         <button
           onClick={handleRefresh}
           disabled={isRefreshing}
