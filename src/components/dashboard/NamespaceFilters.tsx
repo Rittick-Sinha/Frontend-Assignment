@@ -1,72 +1,122 @@
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Check } from "lucide-react";
 import { useState } from "react";
+
+const options = {
+  namespaces: [
+    { value: "all", label: "All Namespaces" },
+    { value: "default", label: "default" },
+    { value: "istio-system", label: "istio-system" },
+    { value: "monitoring", label: "monitoring" },
+  ],
+  services: [
+    { value: "all", label: "All Services" },
+    { value: "frontend", label: "productpage" },
+    { value: "backend", label: "reviews" },
+    { value: "database", label: "ratings" },
+    { value: "database2", label: "details" },
+  ],
+  workloads: [
+    { value: "all", label: "All Workloads" },
+    { value: "deployment", label: "productpage v1" },
+    { value: "statefulset", label: "reviews v1" },
+    { value: "daemonset1", label: "reviews v2" },
+    { value: "daemonset2", label: "reviews v3" },
+    { value: "daemonset3", label: "ratings v1" },
+    { value: "daemonset4", label: "details v1" },
+  ],
+};
 
 export function NamespaceFilters() {
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedNamespace, setSelectedNamespace] = useState("all");
+  const [selectedService, setSelectedService] = useState("all");
+  const [selectedWorkload, setSelectedWorkload] = useState("all");
 
   const handleRefresh = () => {
     setIsRefreshing(true);
-    // Simulate refresh logic (replace with actual fetch)
-    setTimeout(() => {
-      setIsRefreshing(false);
-    }, 1000);
+    setTimeout(() => setIsRefreshing(false), 1000);
   };
 
+  const getSelectedLabel = (
+    list: { value: string; label: string }[],
+    selected: string
+  ) => list.find((item) => item.value === selected)?.label || "";
+
+  const TriggerContent = ({ label }: { label: string }) => (
+    <div className="flex items-center gap-2">
+      <Check className="w-4 h-4 text-muted-foreground" />
+      <span className="truncate">{label}</span>
+    </div>
+  );
+
   return (
-    <Card className="p-4 mb-6 bg-white border border-gray-200">
+    <Card className="p-4 mb-6 border border-gray-200 shadow-sm">
       <div className="flex flex-wrap justify-between items-center gap-4">
-        {/* Left: Filters */}
         <div className="flex flex-wrap items-center gap-4">
-          <Select defaultValue="all">
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="All Namespaces" />
+          {/* Namespace */}
+          <Select value={selectedNamespace} onValueChange={setSelectedNamespace}>
+            <SelectTrigger className="w-52 h-10 text-sm">
+              <SelectValue>
+                <TriggerContent
+                  label={getSelectedLabel(options.namespaces, selectedNamespace)}
+                />
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">✓ All Namespaces</SelectItem>
-              <SelectItem value="default">default</SelectItem>
-              <SelectItem value="istio-system">istio-system</SelectItem>
-              <SelectItem value="monitoring">monitoring</SelectItem>
+              {options.namespaces.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
 
-          <Select defaultValue="all">
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="All Services" />
+          {/* Services */}
+          <Select value={selectedService} onValueChange={setSelectedService}>
+            <SelectTrigger className="w-52 h-10 text-sm">
+              <SelectValue>
+                <TriggerContent
+                  label={getSelectedLabel(options.services, selectedService)}
+                />
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">✓ All Services</SelectItem>
-              <SelectItem value="frontend">productpage</SelectItem>
-              <SelectItem value="backend">reviews</SelectItem>
-              <SelectItem value="database">ratings</SelectItem>
-              <SelectItem value="database">details</SelectItem>
+              {options.services.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
 
-          <Select defaultValue="all">
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="All Workloads" />
+          {/* Workloads */}
+          <Select value={selectedWorkload} onValueChange={setSelectedWorkload}>
+            <SelectTrigger className="w-52 h-10 text-sm">
+              <SelectValue>
+                <TriggerContent
+                  label={getSelectedLabel(options.workloads, selectedWorkload)}
+                />
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">✓ All Workloads</SelectItem>
-              <SelectItem value="deployment">productpage v1</SelectItem>
-              <SelectItem value="statefulset">reviews v1</SelectItem>
-              <SelectItem value="daemonset">reviews v2</SelectItem>
-              <SelectItem value="daemonset">reviews v3</SelectItem>
-              <SelectItem value="daemonset">ratings v1</SelectItem>
-              <SelectItem value="daemonset">details v1</SelectItem>
+              {options.workloads.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
 
-        {/* Right: Refresh button */}
+        {/* Refresh */}
         <button
           onClick={handleRefresh}
           disabled={isRefreshing}
