@@ -136,20 +136,14 @@ export function DashboardSidebar() {
                             e.stopPropagation();
                             toggleMenu(item.title);
                           }}
-                          className={`w-full justify-between ${
+                          className={`w-full justify-between rounded group transition-colors duration-150 ${
                             isActive(item.href, item.submenuItems)
                               ? "bg-blue-50 text-blue-700"
-                              : "text-gray-500 hover:bg-gray-100"
-                          }`}
+                              : "text-gray-500"
+                          } hover:bg-blue-100 hover:text-blue-700`}
                         >
                           <div className="flex items-center gap-3">
-                            <item.icon
-                              className={`w-4 h-4 ${
-                                item.title === "Traffic Management"
-                                  ? "rotate-180"
-                                  : ""
-                              }`}
-                            />
+                            <item.icon className="w-4 h-4" />
                             <span className="font-semibold">{item.title}</span>
                           </div>
                           <ChevronDown className="w-4 h-4" />
@@ -164,16 +158,18 @@ export function DashboardSidebar() {
                           >
                             <Link to={subItem.href}>
                               <div
-                                className={`flex items-center gap-2 text-sm py-1 px-2 rounded hover:bg-gray-100 ${
+                                className={`flex items-center gap-2 text-sm py-1 px-2 rounded transition-colors duration-150 ${
                                   location.pathname === subItem.href
                                     ? "bg-blue-50 text-blue-700"
                                     : "text-gray-500"
-                                }`}
+                                } hover:bg-blue-100 hover:text-blue-700`}
                               >
                                 {subItem.icon && (
                                   <subItem.icon className="w-4 h-4" />
                                 )}
-                                <span className="font-semibold">{subItem.title}</span>
+                                <span className="font-semibold">
+                                  {subItem.title}
+                                </span>
                               </div>
                             </Link>
                           </div>
@@ -182,22 +178,16 @@ export function DashboardSidebar() {
                     </Collapsible>
                   ) : (
                     <SidebarMenuButton
-                      className={`${
+                      className={`rounded group transition-colors duration-150 ${
                         isActive(item.href)
                           ? "bg-blue-50 text-blue-700"
-                          : "text-gray-500 hover:bg-gray-100"
-                      }`}
+                          : "text-gray-500"
+                      } hover:bg-blue-100 hover:text-blue-700`}
                       asChild
                     >
                       <Link to={item.href || "#"}>
                         <div className="flex items-center gap-3">
-                          <item.icon
-                            className={`w-4 h-4 ${
-                              item.title === "Traffic Management"
-                                ? "rotate-180"
-                                : ""
-                            }`}
-                          />
+                          <item.icon className="w-4 h-4" />
                           <span className="font-semibold">{item.title}</span>
                         </div>
                       </Link>
