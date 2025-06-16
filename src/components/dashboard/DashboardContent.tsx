@@ -5,8 +5,6 @@ import { TrafficChart } from "./TrafficChart";
 import { NamespaceFilters } from "./NamespaceFilters";
 import DashboardTabs from "./DashboardTabs";
 import AlertComponent from "./AlertComponent";
-import { RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export function DashboardContent() {
   return (
@@ -20,10 +18,6 @@ export function DashboardContent() {
               <p className="text-gray-600">Real-time overview of your service mesh health and performance</p>
             </div>
           </div>
-          {/* <Button variant="outline" size="sm" className="flex items-center gap-2">
-            <RefreshCw className="w-4 h-4" />
-            Refresh
-          </Button> */}
         </div>
 
         <NamespaceFilters />

@@ -11,16 +11,12 @@ export default function DashboardTabs() {
       </TabsList>
 
       <TabsContent value="overview" className="mt-4">
-        {/* Overview Content */}
       </TabsContent>
       <TabsContent value="performance" className="mt-4">
-        {/* Performance Content */}
       </TabsContent>
       <TabsContent value="security" className="mt-4">
-        {/* Security Content */}
       </TabsContent>
       <TabsContent value="resources" className="mt-4">
-        {/* Resources Content */}
       </TabsContent>
     </Tabs>
   );

@@ -17,7 +17,6 @@ import {
   Database,
   GitBranch,
   Eye,
-  BarChart,
   Shield,
   Users,
   Settings,

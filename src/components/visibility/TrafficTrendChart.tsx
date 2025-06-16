@@ -1,9 +1,6 @@
-// ✅ Updated VisibilityMetricsCards.tsx and TrafficTrendChart with Skeleton
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  TrendingUp,
   CheckCircle,
-  AlertCircle,
   Clock,
   Activity,
   CircleX,

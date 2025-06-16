@@ -2,8 +2,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TrafficOverview } from "./TrafficOverview";
-import { RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 
 export function VisibilityContent() {
   return (
@@ -17,10 +16,6 @@ export function VisibilityContent() {
               <p className="text-gray-600">Monitor and analyze your service mesh through various perspectives</p>
             </div>
           </div>
-          {/* <Button variant="outline" size="sm" className="flex items-center gap-2">
-            <RefreshCw className="w-4 h-4" />
-            Refresh
-          </Button> */}
         </div>
 
         <Tabs defaultValue="traffic-overview" className="space-y-6">

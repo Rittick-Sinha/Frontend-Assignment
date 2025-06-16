@@ -1,5 +1,3 @@
-// File: src/components/dashboard/CustomAlert.tsx
-
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 

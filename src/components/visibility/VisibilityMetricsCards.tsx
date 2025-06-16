@@ -1,9 +1,6 @@
-// ✅ Updated VisibilityMetricsCards.tsx with Skeleton
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  TrendingUp,
   CheckCircle,
-  AlertCircle,
   Clock,
   Activity,
   CircleX,

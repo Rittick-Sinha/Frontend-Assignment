@@ -1,4 +1,4 @@
-// ✅ Full Code with Skeletons for VisibilityMetricsCards, TrafficTrendChart, and TopServicesTable
+
 import {
   Card,
   CardContent,
@@ -6,9 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  TrendingUp,
   CheckCircle,
-  AlertCircle,
   Clock,
   Activity,
   CircleX,
