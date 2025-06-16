@@ -5,12 +5,11 @@ import { DashboardContent } from "@/components/dashboard/DashboardContent";
 
 const Index = () => {
   return (
-    <SidebarProvider>
+
       <div className="min-h-screen flex w-full bg-gray-50">
-        <DashboardSidebar />
         <DashboardContent />
       </div>
-    </SidebarProvider>
+
   );
 };
 
